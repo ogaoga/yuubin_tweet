@@ -1,5 +1,10 @@
 <?php
 
+/*
+App::import('Vendor', 'TwitterEntitiesLinker',
+            array('file' =>'TwitterEntitiesLinker'.DS.'twitter_entities_linker.php'));
+*/
+
 class MainController extends AppController {
 	var $uses = array();
 	var $name = 'Main';
@@ -34,7 +39,7 @@ class MainController extends AppController {
     $code = trim($code);
     $tweets = array();
     if ( strlen($code) ) {
-      $query_url = 'http://search.twitter.com/search.json?locale=ja&q=%23'.$code;
+      $query_url = 'http://search.twitter.com/search.json?show_user=true&locale=ja&q=%23'.$code;
       $result = file_get_contents($query_url);
       if ( $result ) {
         $result = json_decode($result);

@@ -9,10 +9,7 @@ if ( $code ) {
     echo $this->element('form');
 
     // tweets
-    foreach ($tweets as $tweet) {
-      echo $tweet->text;
-      echo '<br />';
-    }
+    echo $this->element('tweets');
   }
   else {
     // error 
