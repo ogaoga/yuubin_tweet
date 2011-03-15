@@ -7,11 +7,26 @@ class MainController extends AppController {
   function beforeFilter() {
     parent::beforeFilter();
 
+    // input and redirect
+    $this->convert_input_encode();
+
+    $code = '';
     if ( isset($this->params['url']['code']) ) {
       $code = trim($this->params['url']['code']);
       if ( strlen($code) > 0 ) {
+        if ( $code[0] == '#' ) {
+          $code = substr($code, 1);
+        }
         $this->redirect('/'.$code);
       }
+      else {
+        $this->redirect('/');
+      }
+    }
+    else if ( isset($this->params['pass'][0]) ) {
+      $code = trim($this->params['pass'][0]);
+    }
+    else {
     }
   }
   
@@ -34,5 +49,10 @@ class MainController extends AppController {
     // set 
     $this->set('code', $code);
     $this->set('tweets', $tweets);
+  }
+
+  function afterFilter() {
+    // output 
+    $this->convert_output_encode();
   }
 }
